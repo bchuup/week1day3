@@ -30,13 +30,13 @@ var library = {
 // p02: Other Playlist - 1 tracks
 
 var printPlaylists = function() {
-  for (var i in library.playlists){
-    var playlist = library.playlists[i].id + ": " + library.playlists[i].name + " - " + library.playlists[i].tracks.length + " tracks"
-    console.log(playlist)
+  for (var playlistId in library.playlists){
+    var playlist = library.playlists[playlistId]
+    console.log(playlist.id + ": " + playlist.name + " - " + playlist.tracks.length + " tracks")
   }
 }
-// printPlaylists()
 
+// printPlaylists()
 
 // prints a list of all tracks, in the form:
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
@@ -44,14 +44,13 @@ var printPlaylists = function() {
 // t03: Four Thirty-Three by John Cage (Woodstock 1952)
 
 var printTracks = function () {
-  for (var i in library.tracks){
-    var tracks = library.tracks[i].id + ": " + library.tracks[i].name + " by " + library.tracks[i].artist + " (" + library.tracks[i].album + ") "
-    console.log(tracks)
+  for (var trackId in library.tracks){
+    var track = library.tracks[trackId]
+    console.log(track.id + ": " + track.name + " by " + track.artist + " (" + track.album + ") ")
   }
 }
+
 // printTracks()
-
-
 
 // prints a list of tracks for a given playlist, in the form:
 // p01: Coding Music - 2 tracks
@@ -59,11 +58,10 @@ var printTracks = function () {
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 
 var printPlaylist = function (playlistId) {
-    var playlist = playlistId + ": " + library.playlists[playlistId].name + " - " + library.playlists[playlistId].tracks.length + " tracks"
-    console.log(playlist)
-  for (var i in library.playlists[playlistId].tracks){
-    var trackInfo = library.playlists[playlistId].tracks[i] //i.e. trackInfo="t01" etc
-    var tracklist = library.playlists[playlistId].tracks[i] + ": "
+  var playlist = playlistId + ": " + library.playlists[playlistId].name + " - " + library.playlists[playlistId].tracks.length + " tracks"
+  console.log(playlist)
+  for (var trackId of library.playlists[playlistId].tracks){
+    var tracklist = library.playlists[playlistId].tracks[trackId] + ": "
                   + library.tracks[trackInfo].name + " by "
                   + library.tracks[trackInfo].artist + " ("
                   + library.tracks[trackInfo].album + ")"
@@ -76,10 +74,8 @@ var printPlaylist = function (playlistId) {
 // adds an existing track to an existing playlist
 
 var addTrackToPlaylist = function (trackId, playlistId) { // trackId= "t01" etc playlistId = "p01" etc
-  for(i in library.playlists) {
-    library.playlists[i].tracks.push(trackId)
-  }
-console.log(library.playlists[playlistId].tracks)
+  library.playlists[playlistId].tracks.push(trackId)
+  console.log(library.playlists[playlistId].tracks)
 }
 // addTrackToPlaylist('t01', 'p02');
 
@@ -125,32 +121,20 @@ var addPlaylist = function (name) {
 // tip: use "string".search("tri")
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search
 
-function testinput(re, str) {
-  var midstring;
-  if (str.search(re) != -1) {
-    midstring = ' contains ';
-  } else {
-    midstring = ' does not contain ';
-  }
-  console.log(str.search(re));
-  console.log(str + midstring + re);
-}
-// testinput("happens", "what happens now")
-
 
 var printSearchResults = function(query) {
   var found = []
-  for (var i in library.tracks){ // for every track
-    for (var a in library.tracks[i]){ // for every item in track
-      var results = library.tracks[i][a].search(query)
+  for (var trackId in library.tracks){ // for every track
+    for (var trackProperties in library.tracks[trackId]){ // for every property in track
+      var results = library.tracks[trackId][trackProperties].search(query)
       if (results >= 0){
-        found.push(library.tracks[i][a])
-        // console.log(found)
+        found.push(library.tracks[trackId])
+        console.log(trackProperties)
       }
     }
   }
-return found
-// return values using a function to return each item in array found;
+  return found
+  // return values using a function to return each item in array found;
 }
 console.log(printSearchResults("Co"))
 

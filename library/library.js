@@ -91,19 +91,32 @@ var uid = function() {
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 }
 
-
 // adds a track to the library
 
 var addTrack = function (name, artist, album) {
-
+  var newId = uid()
+  library.tracks[newId] = {
+    id: newId,
+    name: name,
+    artist: artist,
+    album: album,
+  }
+  console.log(library.tracks)
 }
-
+// addTrack("You're still the one", "Shania Twain", "Come On Over")
 
 // adds a playlist to the library
 
 var addPlaylist = function (name) {
-
+  var newId = uid();
+  library.playlists.newId = {
+    id: newId,
+    name: name,
+    tracks: []
+  }
+  console.log(library.playlists)
 }
+// addPlaylist("Shania's Greatest Hits")
 
 
 // STRETCH:
@@ -112,6 +125,42 @@ var addPlaylist = function (name) {
 // tip: use "string".search("tri")
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search
 
-var printSearchResults = function(query) {
-
+function testinput(re, str) {
+  var midstring;
+  if (str.search(re) != -1) {
+    midstring = ' contains ';
+  } else {
+    midstring = ' does not contain ';
+  }
+  console.log(str.search(re));
+  console.log(str + midstring + re);
 }
+// testinput("happens", "what happens now")
+
+
+var printSearchResults = function(query) {
+  var found = []
+  for (var i in library.tracks){ // for every track
+    for (var a in library.tracks[i]){ // for every item in track
+      var results = library.tracks[i][a].search(query)
+      if (results >= 0){
+        found.push(library.tracks[i][a])
+        // console.log(found)
+      }
+    }
+  }
+return found
+// return values using a function to return each item in array found;
+}
+console.log(printSearchResults("Co"))
+
+
+
+
+
+
+
+
+
+
+

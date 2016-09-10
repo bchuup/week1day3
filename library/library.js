@@ -36,7 +36,7 @@ var printPlaylists = function() {
   }
 }
 
-// printPlaylists()
+printPlaylists()
 
 // prints a list of all tracks, in the form:
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
@@ -62,9 +62,9 @@ var printPlaylist = function (playlistId) {
   console.log(playlist)
   for (var trackId of library.playlists[playlistId].tracks){
     var tracklist = library.playlists[playlistId].tracks[trackId] + ": "
-                  + library.tracks[trackInfo].name + " by "
-                  + library.tracks[trackInfo].artist + " ("
-                  + library.tracks[trackInfo].album + ")"
+                  + library.tracks[trackId].name + " by "
+                  + library.tracks[trackId].artist + " ("
+                  + library.tracks[trackId].album + ")"
     console.log(tracklist)
   }
 }
@@ -136,7 +136,7 @@ var printSearchResults = function(query) {
   return found
   // return values using a function to return each item in array found;
 }
-console.log(printSearchResults("Co"))
+// console.log(printSearchResults("Co"))
 
 
 
